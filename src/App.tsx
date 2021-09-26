@@ -26,6 +26,7 @@ function App() {
             <Login />
           </Route>
           <AuthRoute Component={Home} path={Paths.HOME}></AuthRoute>
+          <AuthRoute Component={Home} path={Paths.ROOT}></AuthRoute>
         </Switch>
       </Router>
     </Container>
