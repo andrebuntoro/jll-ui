@@ -17,7 +17,6 @@ function App() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        bgcolor: "#d96207",
       }}
     >
       <Router>

@@ -22,7 +22,7 @@ const getCatBreeds = async (): Promise<any> => {
 const getCatByBreed = async (breedId: string): Promise<any> => {
   const token = await auth.currentUser?.getIdToken();
   return axios
-    .get(`jll-backend/cat/action/seach?breed_id=${breedId}`, {
+    .get(`jll-backend/cat/action/search?breed_id=${breedId}`, {
       headers: { authorization: `Bearer ${token}` },
     })
     .then((res) => res.data);
