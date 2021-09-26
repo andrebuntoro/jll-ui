@@ -1,0 +1,16 @@
+server {
+
+    listen 17000 default_server;
+    server_name 127.0.0.1 127.0.0.1;
+    index index.html index.htm index.php;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+    }
+
+    location /jll-backend {
+        proxy_pass http://127.0.0.1:8010;
+        proxy_set_header Host $host;
+    }
+
+}
