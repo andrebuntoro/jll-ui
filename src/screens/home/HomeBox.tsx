@@ -1,19 +1,18 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { makeStyles } from "@mui/styles";
-import { useHistory } from "react-router";
 
 import { signOut } from "../../service/auth";
-import { Paths } from "../../route/path";
+import { useAuthContext } from "../../context/AuthContext";
 
 function HomeBox() {
-  const history = useHistory();
+  const { updateUser } = useAuthContext()!;
 
   // handler
   const handleSignOut = () => {
     signOut()
       .then(() => {
-        history.push(Paths.login);
+        updateUser(null);
       })
       .catch((err) => {
         console.log(err);

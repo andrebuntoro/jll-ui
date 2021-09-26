@@ -22,10 +22,10 @@ function App() {
     >
       <Router>
         <Switch>
-          <Route path={Paths.login}>
+          <Route path={Paths.LOGIN}>
             <Login />
           </Route>
-          <AuthRoute Component={Home} path={Paths.home}></AuthRoute>
+          <AuthRoute Component={Home} path={Paths.HOME}></AuthRoute>
         </Switch>
       </Router>
     </Container>

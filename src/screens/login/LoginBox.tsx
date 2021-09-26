@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
 
 import Box from "@mui/material/Box";
@@ -10,16 +10,16 @@ import TextField from "@mui/material/TextField";
 import CircularProgress from "@mui/material/CircularProgress";
 import { makeStyles } from "@mui/styles";
 
-import { AuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "../../context/AuthContext";
 import { createAccount, signIn } from "../../service/auth";
 import { Paths } from "../../route/path";
 
-function LoginBox() {
+const LoginBox = () => {
   // context
   const history = useHistory();
-  const user = useContext(AuthContext);
+  const { user, updateUser } = useAuthContext()!;
   if (user) {
-    history.push(Paths.home);
+    history.push(Paths.HOME);
   }
 
   // state
@@ -39,18 +39,26 @@ function LoginBox() {
 
   const handleLogin = () => {
     setIsLoading(true);
-    signIn(userId, password).catch((err) => {
-      setErrMessage(err);
-      setIsLoading(false);
-    });
+    signIn(userId, password)
+      .then((userCredential) => {
+        updateUser(userCredential.user);
+      })
+      .catch((err) => {
+        setErrMessage(err);
+        setIsLoading(false);
+      });
   };
 
   const handleSignUp = () => {
     setIsLoading(true);
-    createAccount(userId, password).catch((err) => {
-      setErrMessage(err);
-      setIsLoading(false);
-    });
+    createAccount(userId, password)
+      .then((userCredential) => {
+        updateUser(userCredential.user);
+      })
+      .catch((err) => {
+        setErrMessage(err);
+        setIsLoading(false);
+      });
   };
 
   // styling
@@ -153,6 +161,6 @@ function LoginBox() {
       </CardContent>
     </Card>
   );
-}
+};
 
 export default LoginBox;

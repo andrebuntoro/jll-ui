@@ -1,6 +1,6 @@
 enum Paths {
-  home = "/home",
-  login = "/login",
+  HOME = "/home",
+  LOGIN = "/login",
 }
 
 export { Paths };

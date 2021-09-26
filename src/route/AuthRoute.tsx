@@ -1,7 +1,6 @@
-import { useContext } from "react";
 import { Route, Redirect, RouteComponentProps } from "react-router-dom";
 
-import { AuthContext } from "../context/AuthContext";
+import { useAuthContext } from "../context/AuthContext";
 import { Paths } from "../route/path";
 
 interface Props {
@@ -11,7 +10,7 @@ interface Props {
 }
 
 const AuthRoute = ({ Component, path }: Props): JSX.Element => {
-  const user = useContext(AuthContext);
+  const { user } = useAuthContext()!;
   const isLoggedIn = user ? true : false;
 
   return (
@@ -21,7 +20,7 @@ const AuthRoute = ({ Component, path }: Props): JSX.Element => {
         isLoggedIn ? (
           <Component {...props} />
         ) : (
-          <Redirect to={{ pathname: Paths.login }}></Redirect>
+          <Redirect to={{ pathname: Paths.LOGIN }}></Redirect>
         )
       }
     ></Route>
