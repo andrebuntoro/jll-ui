@@ -8,7 +8,6 @@ import { makeStyles } from "@mui/styles";
 
 import { signOut, grantUserRole } from "../../service/auth";
 import { getCatBreeds, getCatByBreed, getRandomCats } from "../../service/cat";
-import { useAuthContext } from "../../context/AuthContext";
 import CatBox from "./components/CatBox";
 
 function HomeBox() {
@@ -16,7 +15,6 @@ function HomeBox() {
   const [catBreeds, setCatBreeds] = useState([]);
   const [catUrls, setCatUrls] = useState([]);
   const [userId, setUserId] = useState("");
-  const [role, setRole] = useState("");
 
   useEffect(() => {
     handleRefreshCat();
@@ -35,13 +33,8 @@ function HomeBox() {
   };
 
   // role handler
-
-  const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRole(e.target.value);
-  };
-
   const handleRoleSubmit = () => {
-    grantUserRole(userId, role)
+    grantUserRole(userId)
       .then((res) => {
         console.log(res);
       })
@@ -51,7 +44,6 @@ function HomeBox() {
   };
 
   // cat handler
-
   const handleRefreshCat = () => {
     if (breed) {
       getCatByBreed(breed)
@@ -139,18 +131,6 @@ function HomeBox() {
             maxWidth: "70%",
           }}
           onChange={handleUserIdChange}
-        />
-      </Box>
-      <Box className={classes.basicBox}>
-        <TextField
-          fullWidth
-          id="role-input"
-          label="Role"
-          size="small"
-          sx={{
-            maxWidth: "70%",
-          }}
-          onChange={handleRoleChange}
         />
       </Box>
       <Box className={classes.basicBox}>

@@ -11,11 +11,10 @@ const createAccount = (email: string, password: string): Promise<void> => {
   return axios.post("jll-backend/user", data);
 };
 
-const grantUserRole = async (email: string, role: string): Promise<void> => {
+const grantUserRole = async (email: string): Promise<void> => {
   const token = await auth.currentUser?.getIdToken();
   const data = {
     email: email,
-    role: role,
   };
 
   return axios.post("jll-backend/user/role", data, {
