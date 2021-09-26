@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDxYsf6BLwgWx1VW901trIDBvi0KRkDuHU",
+  apiKey: "",
   projectId: "jll-service",
 };
 
