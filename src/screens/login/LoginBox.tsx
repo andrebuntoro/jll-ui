@@ -17,7 +17,7 @@ import { Paths } from "../../route/path";
 const LoginBox = () => {
   // context
   const history = useHistory();
-  const { user, updateUser } = useAuthContext()!;
+  const user = useAuthContext();
   if (user) {
     history.push(Paths.HOME);
   }
@@ -39,24 +39,18 @@ const LoginBox = () => {
 
   const handleLogin = () => {
     setIsLoading(true);
-    signIn(userId, password)
-      .then((userCredential) => {
-        updateUser(userCredential.user);
-      })
-      .catch((err) => {
-        setErrMessage(err);
-        setIsLoading(false);
-      });
+    signIn(userId, password).catch((err) => {
+      setErrMessage(err);
+      setIsLoading(false);
+    });
   };
 
   const handleSignUp = () => {
     setIsLoading(true);
     createAccount(userId, password)
-      .then((userCredential) => {
-        updateUser(userCredential.user);
-      })
+      .then(handleLogin)
       .catch((err) => {
-        setErrMessage(err);
+        setErrMessage(err.message);
         setIsLoading(false);
       });
   };

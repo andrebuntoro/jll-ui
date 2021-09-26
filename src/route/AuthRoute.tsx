@@ -10,7 +10,7 @@ interface Props {
 }
 
 const AuthRoute = ({ Component, path }: Props): JSX.Element => {
-  const { user } = useAuthContext()!;
+  const user = useAuthContext();
   const isLoggedIn = user ? true : false;
 
   return (
