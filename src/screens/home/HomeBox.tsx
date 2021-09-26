@@ -27,7 +27,7 @@ function HomeBox() {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      paddingTop: "5%",
+      marginTop: "5%",
     },
   });
   const classes = useStyles();

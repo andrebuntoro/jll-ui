@@ -7,6 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import CircularProgress from "@mui/material/CircularProgress";
 import { makeStyles } from "@mui/styles";
 
 import { AuthContext } from "../../context/AuthContext";
@@ -25,6 +26,7 @@ function LoginBox() {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [errMessage, setErrMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // handler
   const handleUserIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,14 +38,18 @@ function LoginBox() {
   };
 
   const handleLogin = () => {
+    setIsLoading(true);
     signIn(userId, password).catch((err) => {
       setErrMessage(err);
+      setIsLoading(false);
     });
   };
 
   const handleSignUp = () => {
+    setIsLoading(true);
     createAccount(userId, password).catch((err) => {
       setErrMessage(err);
+      setIsLoading(false);
     });
   };
 
@@ -54,13 +60,24 @@ function LoginBox() {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      paddingTop: "5%",
+      marginTop: "5%",
     },
     errorBox: {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
+    },
+    buttonBox: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: "3%",
+    },
+    basicButton: {
+      display: "flex",
+      marginRight: "2%",
     },
   });
   const classes = useStyles();
@@ -110,16 +127,29 @@ function LoginBox() {
           </Typography>
         </Box>
 
-        <Box className={classes.basicBox}>
-          <Button variant="contained" onClick={handleLogin}>
-            Login
-          </Button>
-        </Box>
-        <Box className={classes.basicBox}>
-          <Button variant="contained" onClick={handleSignUp}>
-            SignUp
-          </Button>
-        </Box>
+        {isLoading ? (
+          <Box className={classes.basicBox}>
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Box className={classes.buttonBox}>
+            <Button
+              className={classes.basicButton}
+              variant="contained"
+              onClick={handleSignUp}
+            >
+              {isLoading ? <CircularProgress /> : "Signup"}
+            </Button>
+            <br />
+            <Button
+              className={classes.basicButton}
+              variant="contained"
+              onClick={handleLogin}
+            >
+              {isLoading ? <CircularProgress /> : "Login"}
+            </Button>
+          </Box>
+        )}
       </CardContent>
     </Card>
   );
